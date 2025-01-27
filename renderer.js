@@ -4,9 +4,21 @@ let timerInterval;
 let isRunning = false;
 
 const progressBar = document.querySelector('.progress-bar');
-const timerText = document.querySelector('.timer-text');
+const timerText = document.getElementById('timer-text'); // Timer text element
 const toggleButton = document.getElementById('toggle');
 const resetButton = document.getElementById('reset');
+
+// Set initial opacity value explicitly
+timerText.style.opacity = '1';
+
+// Function to toggle timer visibility
+timerText.addEventListener('click', () => {
+    if (timerText.style.opacity === '1') {
+        timerText.style.opacity = '0'; // Hide timer
+    } else {
+        timerText.style.opacity = '1'; // Show timer
+    }
+});
 
 function updateProgressBar() {
     const totalSeconds = 25 * 60; // Total time in seconds (25 minutes)

@@ -16,36 +16,32 @@ body {
     flex-direction: column;
     align-items: center;
     border: 2px solid #204c4f; /* Dark teal border */
-    border-radius: 15px; /* Rounded corners for the border */
-    box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.8); /* Shadow for better visibility */
-    background: #121212; /* Dark background */
+    border-radius: 15px;
+    box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.8);
+    background: #121212;
     padding: 20px;
-    position: relative; /* To handle hover effects */
+    position: relative;
     transition: background 0.3s ease-in-out;
 }
 
-.container:hover .timer-text {
-    opacity: 1; /* Show time when hovering anywhere on the container */
-}
-
 .progress-bar {
-    width: 150px; /* Smaller donut */
+    width: 150px;
     height: 150px;
     border-radius: 50%;
-    background: conic-gradient(#1f7073 0%, #333333 100%); /* Smooth dark teal progress */
+    background: conic-gradient(#1f7073 0%, #333333 100%);
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
     transition: background 0.3s ease-in-out;
-    filter: blur(0.6px); /* Add slight blur to smooth edges */
+    filter: blur(0.6px);
 }
 
 .progress-bar::after {
     content: '';
     width: 100px; /* Inner hole */
     height: 100px;
-    background: #121212; /* Matches container background */
+    background: #121212;
     border-radius: 50%;
     position: absolute;
     z-index: 1; /* Ensures the hole is properly layered */
@@ -54,44 +50,45 @@ body {
 .timer-text {
     font-size: 24px;
     font-weight: bold;
-    color: #d1f0ef; /* Light teal for text */
+    color: #d1f0ef;
     position: absolute;
     z-index: 2; /* Ensure it's above the hole */
-    opacity: 0; /* Hidden by default */
+    opacity: 1; /* Visible by default */
     transition: opacity 0.3s ease-in-out;
+    cursor: pointer; /* Indicate that the text is clickable */
 }
 
 .controls {
     display: flex;
-    gap: 15px; /* Spacing between buttons */
+    gap: 15px;
     margin-top: 15px;
 }
 
 .controls button {
     font-size: 16px;
-    background: #2e595b; /* Dark teal for buttons */
+    background: #2e595b;
     color: #ffffff;
     border: none;
-    border-radius: 50%; /* Circular buttons */
-    width: 50px; /* Button width */
-    height: 50px; /* Button height */
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .controls button:hover {
-    transform: scale(1.1); /* Slightly enlarge on hover */
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3); /* Enhanced shadow */
+    transform: scale(1.1);
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
 }
 
 #reset {
-    background: linear-gradient(45deg, #1f7073, #2e595b); /* Dark teal gradient */
+    background: linear-gradient(45deg, #1f7073, #2e595b);
 }
 
 #reset:hover {
-    background: linear-gradient(45deg, #3e8285, #2e595b); /* Lighter on hover */
+    background: linear-gradient(45deg, #3e8285, #2e595b);
 }
