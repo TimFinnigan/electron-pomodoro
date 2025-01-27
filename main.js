@@ -5,25 +5,27 @@ let mainWindow;
 
 app.on('ready', () => {
     const { workArea } = screen.getPrimaryDisplay(); // Get screen dimensions
-    const cornerX = workArea.x; // Top-left corner X coordinate
-    const cornerY = workArea.y; // Top-left corner Y coordinate
+    const cornerX = workArea.x + workArea.width - 300; // Adjust for top-right corner
+    const cornerY = workArea.y; // Top-right corner Y coordinate
 
     mainWindow = new BrowserWindow({
         width: 300,
-        height: 210,
-        resizable: false, // Disable resizing
-        alwaysOnTop: true, // Keep window always on top
+        height: 300, // Increased height to accommodate the circular timer
+        resizable: false,
+        alwaysOnTop: true,
+        transparent: true, // Makes the background transparent
+        frame: false, // Hides the frame for a cleaner look
         webPreferences: {
             preload: path.join(__dirname, 'renderer.js')
         }
     });
 
-    // Position window to top-left corner of the screen
+    // Position window to top-right corner of the screen
     mainWindow.setBounds({
         x: cornerX,
         y: cornerY,
         width: 300,
-        height: 210
+        height: 300
     });
 
     mainWindow.loadFile('index.html');

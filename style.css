@@ -1,71 +1,53 @@
-/* General body styling */
 body {
     font-family: 'Inter', sans-serif;
-    background: #121212;
-    color: #e0e0e0;
+    background: transparent;
+    margin: 0;
+    padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    margin: 0;
-    padding: 0;
+    overflow: hidden;
 }
 
-/* Main container */
 .container {
     text-align: center;
-    background: #1e1e1e;
-    padding: 30px 20px;
-    border-radius: 15px;
-    box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.8);
-    width: 300px;
-    height: 200px; /* Adjusted height */
-    border: 1px solid #292929;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-/* Timer display */
-.timer {
-    font-size: 50px; /* Adjusted for smaller container */
-    font-weight: 700;
-    color: #ffffff;
-    margin-top: 35px;
-    letter-spacing: 2px;
-}
-
-/* Controls container */
-.controls {
+.progress-bar {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: conic-gradient(#333333 0%, #333333 100%);
     display: flex;
     justify-content: center;
+    align-items: center;
+    position: relative;
+    transition: background 0.3s ease-in-out;
+}
+
+.progress-bar:hover .timer-text {
+    opacity: 1;
+}
+
+.timer-text {
+    font-size: 36px;
+    font-weight: bold;
+    color: #ffffff;
+    opacity: 0; /* Hidden by default */
+    transition: opacity 0.3s ease-in-out;
+}
+
+.controls {
+    display: flex;
     gap: 10px;
     margin-top: 20px;
 }
 
-/* Button styles */
 .controls button {
     font-size: 18px;
     background: #333333;
-    color: #ffffff;
-    border: none;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-}
-
-/* Button hover effects */
-.controls button:hover {
-    transform: scale(1.1);
-}
-
-/* Reset button specific */
-#reset {
-    background: linear-gradient(45deg, #ff3e3e, #b53030);
-}
-
-#reset:hover {
-    background: linear-gradient(45deg, #ff6b6b, #cc4040);
-}
+    color

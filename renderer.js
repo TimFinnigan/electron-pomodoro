@@ -3,15 +3,26 @@ let seconds = 0;
 let timerInterval;
 let isRunning = false;
 
-const minutesElement = document.getElementById('minutes');
-const secondsElement = document.getElementById('seconds');
+const progressBar = document.querySelector('.progress-bar');
+const timerText = document.querySelector('.timer-text');
 const toggleButton = document.getElementById('toggle');
 const resetButton = document.getElementById('reset');
-const currentTimeButton = document.getElementById('current-time'); // New button for current time
+
+function updateProgressBar() {
+    const totalSeconds = 25 * 60; // Total time in seconds (25 minutes)
+    const elapsedSeconds = totalSeconds - (minutes * 60 + seconds);
+    const percentage = (elapsedSeconds / totalSeconds) * 100;
+    progressBar.style.background = `conic-gradient(
+        #ff3e3e ${percentage}%, 
+        #333333 ${percentage}% 100%
+    )`;
+}
 
 function updateDisplay() {
-    minutesElement.textContent = minutes.toString().padStart(2, '0');
-    secondsElement.textContent = seconds.toString().padStart(2, '0');
+    timerText.textContent = `${minutes.toString().padStart(2, '0')}:${seconds
+        .toString()
+        .padStart(2, '0')}`;
+    updateProgressBar();
 }
 
 function startTimer() {
@@ -21,15 +32,14 @@ function startTimer() {
                 if (minutes === 0) {
                     clearInterval(timerInterval);
                     timerInterval = null;
-                    
-                    // Display the current time in 12-hour format with AM/PM
+
                     const now = new Date();
                     let hours = now.getHours();
                     const minutes = now.getMinutes().toString().padStart(2, '0');
                     const amPm = hours >= 12 ? 'PM' : 'AM';
-                    hours = hours % 12 || 12; // Convert to 12-hour format
+                    hours = hours % 12 || 12;
+
                     alert(`Pomodoro Complete!\nCurrent Time: ${hours}:${minutes} ${amPm}`);
-                    
                 } else {
                     minutes--;
                     seconds = 59;
@@ -50,10 +60,10 @@ function pauseTimer() {
 toggleButton.addEventListener('click', () => {
     if (isRunning) {
         pauseTimer();
-        toggleButton.innerHTML = '<i class="fas fa-play"></i>'; // Play icon
+        toggleButton.innerHTML = '<i class="fas fa-play"></i>';
     } else {
         startTimer();
-        toggleButton.innerHTML = '<i class="fas fa-pause"></i>'; // Pause icon
+        toggleButton.innerHTML = '<i class="fas fa-pause"></i>';
     }
     isRunning = !isRunning;
 });
@@ -64,7 +74,7 @@ resetButton.addEventListener('click', () => {
     isRunning = false;
     minutes = 25;
     seconds = 0;
-    toggleButton.innerHTML = '<i class="fas fa-play"></i>'; // Reset to play icon
+    toggleButton.innerHTML = '<i class="fas fa-play"></i>';
     updateDisplay();
 });
 
