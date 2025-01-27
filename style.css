@@ -15,13 +15,24 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    border: 2px solid #204c4f; /* Dark teal border */
+    border-radius: 15px; /* Rounded corners for the border */
+    box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.8); /* Shadow for better visibility */
+    background: #121212; /* Dark background */
+    padding: 20px;
+    position: relative; /* To handle hover effects */
+    transition: background 0.3s ease-in-out;
+}
+
+.container:hover .timer-text {
+    opacity: 1; /* Show time when hovering anywhere on the container */
 }
 
 .progress-bar {
-    width: 200px;
-    height: 200px;
+    width: 150px; /* Smaller donut */
+    height: 150px;
     border-radius: 50%;
-    background: conic-gradient(#333333 0%, #333333 100%);
+    background: conic-gradient(#204c4f 0%, #333333 100%); /* Dark teal progress */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -29,25 +40,57 @@ body {
     transition: background 0.3s ease-in-out;
 }
 
-.progress-bar:hover .timer-text {
-    opacity: 1;
+.progress-bar::after {
+    content: '';
+    width: 100px; /* Inner hole */
+    height: 100px;
+    background: #121212; /* Matches container background */
+    border-radius: 50%;
+    position: absolute;
+    z-index: 1; /* Ensures the hole is properly layered */
 }
 
 .timer-text {
-    font-size: 36px;
+    font-size: 24px;
     font-weight: bold;
-    color: #ffffff;
+    color: #d1f0ef; /* Light teal for text */
+    position: absolute;
+    z-index: 2; /* Ensure it's above the hole */
     opacity: 0; /* Hidden by default */
     transition: opacity 0.3s ease-in-out;
 }
 
 .controls {
     display: flex;
-    gap: 10px;
-    margin-top: 20px;
+    gap: 15px; /* Spacing between buttons */
+    margin-top: 15px;
 }
 
 .controls button {
-    font-size: 18px;
-    background: #333333;
-    color
+    font-size: 16px;
+    background: #2e595b; /* Dark teal for buttons */
+    color: #ffffff;
+    border: none;
+    border-radius: 50%; /* Circular buttons */
+    width: 50px; /* Button width */
+    height: 50px; /* Button height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+}
+
+.controls button:hover {
+    transform: scale(1.1); /* Slightly enlarge on hover */
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3); /* Enhanced shadow */
+}
+
+#reset {
+    background: linear-gradient(45deg, #1f7073, #2e595b); /* Dark teal gradient */
+}
+
+#reset:hover {
+    background: linear-gradient(45deg, #3e8285, #2e595b); /* Lighter on hover */
+}

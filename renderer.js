@@ -60,10 +60,10 @@ function pauseTimer() {
 toggleButton.addEventListener('click', () => {
     if (isRunning) {
         pauseTimer();
-        toggleButton.innerHTML = '<i class="fas fa-play"></i>';
+        toggleButton.innerHTML = '<i class="fas fa-play"></i>'; // Icon-only
     } else {
         startTimer();
-        toggleButton.innerHTML = '<i class="fas fa-pause"></i>';
+        toggleButton.innerHTML = '<i class="fas fa-pause"></i>'; // Icon-only
     }
     isRunning = !isRunning;
 });
@@ -74,7 +74,7 @@ resetButton.addEventListener('click', () => {
     isRunning = false;
     minutes = 25;
     seconds = 0;
-    toggleButton.innerHTML = '<i class="fas fa-play"></i>';
+    toggleButton.innerHTML = '<i class="fas fa-play"></i>'; // Icon-only
     updateDisplay();
 });
 
