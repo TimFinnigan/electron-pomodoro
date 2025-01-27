@@ -10,22 +10,27 @@ app.on('ready', () => {
 
     mainWindow = new BrowserWindow({
         width: 200,
-        height: 300, // Increased height to accommodate the circular timer
+        height: 300,
         resizable: false,
         alwaysOnTop: true,
-        transparent: true, // Makes the background transparent
-        frame: false, // Hides the frame for a cleaner look
+        transparent: true,
+        frame: false,
         webPreferences: {
             preload: path.join(__dirname, 'renderer.js')
-        }
+        },
+        fullscreenable: false, // Prevent fullscreen on double-click
     });
 
-    // Position window to top-right corner of the screen
     mainWindow.setBounds({
         x: cornerX,
         y: cornerY,
         width: 200,
         height: 300
+    });
+
+    // Ensure the window stays on all virtual desktops
+    mainWindow.setVisibleOnAllWorkspaces(true, {
+        visibleOnFullScreen: true // Keep it visible even in fullscreen apps
     });
 
     mainWindow.loadFile('index.html');
