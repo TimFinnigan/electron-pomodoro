@@ -9,7 +9,7 @@ app.on('ready', () => {
     const cornerY = workArea.y; // Top-right corner Y coordinate
 
     mainWindow = new BrowserWindow({
-        width: 300,
+        width: 200,
         height: 300, // Increased height to accommodate the circular timer
         resizable: false,
         alwaysOnTop: true,
@@ -24,7 +24,7 @@ app.on('ready', () => {
     mainWindow.setBounds({
         x: cornerX,
         y: cornerY,
-        width: 300,
+        width: 200,
         height: 300
     });
 
