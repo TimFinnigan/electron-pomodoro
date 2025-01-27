@@ -5,8 +5,9 @@ let mainWindow;
 
 app.on('ready', () => {
     mainWindow = new BrowserWindow({
-        width: 400,
-        height: 500,
+        width: 350,
+        height: 275,
+        resizable: false, // Disable resizing
         webPreferences: {
             preload: path.join(__dirname, 'renderer.js')
         }
