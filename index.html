@@ -5,17 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pomodoro Timer</title>
   <link rel="stylesheet" href="style.css">
+  <!-- Include Font Awesome from local node_modules -->
+  <link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/all.min.css">
 </head>
 <body>
   <div class="container">
-    <h1>Pomodoro Timer</h1>
     <div class="timer">
       <span id="minutes">25</span>:<span id="seconds">00</span>
     </div>
     <div class="controls">
-      <button id="start">Start</button>
-      <button id="pause">Pause</button>
-      <button id="reset">Reset</button>
+      <button id="toggle"><i class="fas fa-play"></i></button>
+      <button id="reset"><i class="fas fa-redo"></i></button>
     </div>
   </div>
   <script src="renderer.js"></script>

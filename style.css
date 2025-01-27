@@ -1,112 +1,71 @@
 /* General body styling */
 body {
-    font-family: 'Inter', sans-serif; /* Modern font */
-    background: #121212; /* Dark background for sleek look */
-    color: #e0e0e0; /* Light grey text for contrast */
+    font-family: 'Inter', sans-serif;
+    background: #121212;
+    color: #e0e0e0;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
     padding: 0;
-  }
-  
-  /* Main container */
-  .container {
+}
+
+/* Main container */
+.container {
     text-align: center;
-    background: #1e1e1e; /* Dark grey for container */
-    padding: 40px 30px;
-    border-radius: 20px; /* Softer, rounder corners */
-    box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.8); /* Subtle shadow */
-    max-width: 360px;
-    width: 90%;
-    border: 1px solid #292929; /* Subtle border for structure */
-  }
-  
-  /* Timer display */
-  .timer {
-    font-size: 72px; /* Large and bold numbers */
+    background: #1e1e1e;
+    padding: 30px 20px;
+    border-radius: 15px;
+    box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.8);
+    width: 300px;
+    height: 200px; /* Adjusted height */
+    border: 1px solid #292929;
+}
+
+/* Timer display */
+.timer {
+    font-size: 50px; /* Adjusted for smaller container */
     font-weight: 700;
-    color: #ffffff; /* Bright white text */
-    margin: 20px 0;
-    letter-spacing: 3px; /* Futuristic spacing */
-  }
-  
-  /* Heading */
-  h1 {
-    font-size: 22px;
-    font-weight: 500;
-    color: #b3b3b3; /* Softer heading color */
-    margin-bottom: 20px;
-    text-transform: uppercase;
+    color: #ffffff;
+    margin-top: 15px;
     letter-spacing: 2px;
-  }
-  
-  /* Buttons container */
-  .controls {
+}
+
+/* Controls container */
+.controls {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     gap: 10px;
-    margin-top: 30px;
-  }
-  
-  /* General button styling */
-  .controls button {
-    font-size: 14px;
-    font-weight: 600;
-    padding: 12px 20px;
+    margin-top: 20px;
+}
+
+/* Button styles */
+.controls button {
+    font-size: 18px;
+    background: #333333;
+    color: #ffffff;
     border: none;
-    border-radius: 8px;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
-    flex: 1;
-    color: #ffffff; /* White text */
-    background: #333333; /* Neutral grey buttons */
     transition: all 0.3s ease-in-out;
-  }
-  
-  /* Start button */
-  #start {
-    background: linear-gradient(45deg, #00b894, #00836b); /* Sleek gradient green */
-  }
-  
-  #start:hover {
-    transform: scale(1.05);
-    background: linear-gradient(45deg, #00d3a8, #009f78); /* Brighter gradient */
-  }
-  
-  /* Pause button */
-  #pause {
-    background: linear-gradient(45deg, #ffa500, #cc7a00); /* Gradient orange */
-  }
-  
-  #pause:hover {
-    transform: scale(1.05);
-    background: linear-gradient(45deg, #ffc13c, #e09100); /* Lighter gradient */
-  }
-  
-  /* Reset button */
-  #reset {
-    background: linear-gradient(45deg, #ff3e3e, #b53030); /* Gradient red */
-  }
-  
-  #reset:hover {
-    transform: scale(1.05);
-    background: linear-gradient(45deg, #ff6b6b, #cc4040); /* Softer red hover */
-  }
-  
-  /* Responsive Design */
-  @media (max-width: 480px) {
-    .timer {
-      font-size: 60px;
-    }
-  
-    h1 {
-      font-size: 18px;
-    }
-  
-    .controls button {
-      font-size: 12px;
-      padding: 10px 15px;
-    }
-  }
-  
+}
+
+/* Button hover effects */
+.controls button:hover {
+    transform: scale(1.1);
+}
+
+/* Reset button specific */
+#reset {
+    background: linear-gradient(45deg, #ff3e3e, #b53030);
+}
+
+#reset:hover {
+    background: linear-gradient(45deg, #ff6b6b, #cc4040);
+}

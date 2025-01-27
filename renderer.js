@@ -1,11 +1,11 @@
 let minutes = 25;
 let seconds = 0;
 let timerInterval;
+let isRunning = false;
 
 const minutesElement = document.getElementById('minutes');
 const secondsElement = document.getElementById('seconds');
-const startButton = document.getElementById('start');
-const pauseButton = document.getElementById('pause');
+const toggleButton = document.getElementById('toggle');
 const resetButton = document.getElementById('reset');
 
 function updateDisplay() {
@@ -38,16 +38,25 @@ function pauseTimer() {
     timerInterval = null;
 }
 
-function resetTimer() {
+toggleButton.addEventListener('click', () => {
+    if (isRunning) {
+        pauseTimer();
+        toggleButton.innerHTML = '<i class="fas fa-play"></i>'; // Play icon
+    } else {
+        startTimer();
+        toggleButton.innerHTML = '<i class="fas fa-pause"></i>'; // Pause icon
+    }
+    isRunning = !isRunning;
+});
+
+resetButton.addEventListener('click', () => {
     clearInterval(timerInterval);
     timerInterval = null;
+    isRunning = false;
     minutes = 25;
     seconds = 0;
+    toggleButton.innerHTML = '<i class="fas fa-play"></i>'; // Reset to play icon
     updateDisplay();
-}
-
-startButton.addEventListener('click', startTimer);
-pauseButton.addEventListener('click', pauseTimer);
-resetButton.addEventListener('click', resetTimer);
+});
 
 updateDisplay();
