@@ -9,8 +9,8 @@ app.on('ready', () => {
     const cornerY = workArea.y; // Top-left corner Y coordinate
 
     mainWindow = new BrowserWindow({
-        width: 350,
-        height: 250,
+        width: 300,
+        height: 210,
         resizable: false, // Disable resizing
         alwaysOnTop: true, // Keep window always on top
         webPreferences: {
@@ -22,8 +22,8 @@ app.on('ready', () => {
     mainWindow.setBounds({
         x: cornerX,
         y: cornerY,
-        width: 350,
-        height: 250
+        width: 300,
+        height: 210
     });
 
     mainWindow.loadFile('index.html');

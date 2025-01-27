@@ -7,6 +7,7 @@ const minutesElement = document.getElementById('minutes');
 const secondsElement = document.getElementById('seconds');
 const toggleButton = document.getElementById('toggle');
 const resetButton = document.getElementById('reset');
+const currentTimeButton = document.getElementById('current-time'); // New button for current time
 
 function updateDisplay() {
     minutesElement.textContent = minutes.toString().padStart(2, '0');
@@ -20,7 +21,15 @@ function startTimer() {
                 if (minutes === 0) {
                     clearInterval(timerInterval);
                     timerInterval = null;
-                    alert('Pomodoro Complete!');
+                    
+                    // Display the current time in 12-hour format with AM/PM
+                    const now = new Date();
+                    let hours = now.getHours();
+                    const minutes = now.getMinutes().toString().padStart(2, '0');
+                    const amPm = hours >= 12 ? 'PM' : 'AM';
+                    hours = hours % 12 || 12; // Convert to 12-hour format
+                    alert(`Pomodoro Complete!\nCurrent Time: ${hours}:${minutes} ${amPm}`);
+                    
                 } else {
                     minutes--;
                     seconds = 59;
