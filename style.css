@@ -32,12 +32,13 @@ body {
     width: 150px; /* Smaller donut */
     height: 150px;
     border-radius: 50%;
-    background: conic-gradient(#204c4f 0%, #333333 100%); /* Dark teal progress */
+    background: conic-gradient(#1f7073 0%, #333333 100%); /* Smooth dark teal progress */
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
     transition: background 0.3s ease-in-out;
+    filter: blur(0.6px); /* Add slight blur to smooth edges */
 }
 
 .progress-bar::after {

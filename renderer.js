@@ -13,9 +13,9 @@ function updateProgressBar() {
     const elapsedSeconds = totalSeconds - (minutes * 60 + seconds);
     const percentage = (elapsedSeconds / totalSeconds) * 100;
     progressBar.style.background = `conic-gradient(
-        #ff3e3e ${percentage}%, 
-        #333333 ${percentage}% 100%
-    )`;
+        #1f7073 ${percentage.toFixed(2)}%, 
+        #333333 ${percentage.toFixed(2)}% 100%
+    )`; /* Smooth gradient fill */
 }
 
 function updateDisplay() {
