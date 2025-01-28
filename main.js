@@ -16,7 +16,7 @@ app.on("ready", () => {
         height: 300,
         resizable: false,
         alwaysOnTop: true,
-        transparent: true, // Ensures full transparency
+        transparent: true, // Ensures transparency
         frame: false,
         hasShadow: false, // Prevents OS-level window shadow (mainly macOS)
         backgroundColor: "#00000000", // Ensures no white space/background

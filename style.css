@@ -1,5 +1,4 @@
 /* Body styling */
-/* Ensure no extra space around the window */
 html, body {
     margin: 0;
     padding: 0;
@@ -16,8 +15,8 @@ html, body {
     flex-direction: column;
     align-items: center;
     border-radius: 15px;
-    box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.8);
-    background: rgba(18, 18, 18, 0.97); /* Slightly transparent black */
+    box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.8); /* Slight shadow for depth */
+    background: rgba(18, 18, 18, 0.9); /* Slightly transparent black */
     padding: 20px;
     position: relative;
     transition: background 0.3s ease-in-out;
@@ -44,7 +43,7 @@ html, body {
     content: '';
     width: 100px; /* Inner hole */
     height: 100px;
-    background: #121212;
+    background: rgba(18, 18, 18, 0.9); /* Slight transparency inside the progress bar */
     border-radius: 50%;
     position: absolute;
     z-index: 1; /* Ensures the hole is properly layered */
