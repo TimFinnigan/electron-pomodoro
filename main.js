@@ -5,8 +5,11 @@ let mainWindow;
 
 app.on("ready", () => {
     const { workArea } = screen.getPrimaryDisplay();
-    const cornerX = workArea.x + workArea.width - 200;
-    const cornerY = workArea.y;
+    
+    // Adjustments: Keep app in top-right but with a slight offset
+    const offset = 10; // Small spacing from the edges
+    const cornerX = workArea.x + workArea.width - 200 - offset;
+    const cornerY = workArea.y + offset; // Offset from top
 
     mainWindow = new BrowserWindow({
         width: 200,
@@ -33,6 +36,11 @@ app.on("ready", () => {
     // Ensure the window size exactly matches content dimensions
     mainWindow.once("ready-to-show", () => {
         mainWindow.setBounds({ x: cornerX, y: cornerY, width: 200, height: 300 });
+    });
+
+    // Keep window on all virtual desktops
+    mainWindow.setVisibleOnAllWorkspaces(true, {
+        visibleOnFullScreen: true, // Keep it visible even in fullscreen apps
     });
 
     mainWindow.loadFile("index.html");
