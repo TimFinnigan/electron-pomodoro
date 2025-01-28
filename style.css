@@ -1,3 +1,4 @@
+/* Body styling */
 body {
     font-family: 'Inter', sans-serif;
     background: transparent;
@@ -10,6 +11,7 @@ body {
     overflow: hidden;
 }
 
+/* Timer container */
 .container {
     text-align: center;
     display: flex;
@@ -24,6 +26,7 @@ body {
     -webkit-app-region: drag; /* Allow dragging */
 }
 
+/* Circular progress bar */
 .progress-bar {
     width: 150px;
     height: 150px;
@@ -34,9 +37,11 @@ body {
     align-items: center;
     position: relative;
     transition: background 0.3s ease-in-out;
-    filter: blur(0.6px);
+    backface-visibility: hidden; /* Fix rendering issues */
+    transform: translate3d(0, 0, 0); /* Use GPU rendering */
 }
 
+/* Inner hole for the progress bar */
 .progress-bar::after {
     content: '';
     width: 100px; /* Inner hole */
@@ -45,8 +50,10 @@ body {
     border-radius: 50%;
     position: absolute;
     z-index: 1; /* Ensures the hole is properly layered */
+    backface-visibility: hidden; /* Ensure clear rendering */
 }
 
+/* Timer text inside the progress bar */
 .timer-text {
     font-size: 24px;
     font-weight: bold;
@@ -59,41 +66,7 @@ body {
     -webkit-app-region: no-drag; /* Make the timer text interactive */
 }
 
-.controls {
-    display: flex;
-    gap: 15px;
-    margin-top: 15px;
-}
-
-.controls button {
-    font-size: 16px;
-    background: #2e595b;
-    color: #ffffff;
-    border: none;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.controls button:hover {
-    transform: scale(1.1);
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
-}
-
-#reset {
-    background: linear-gradient(45deg, #1f7073, #2e595b);
-}
-
-#reset:hover {
-    background: linear-gradient(45deg, #3e8285, #2e595b);
-}
-
+/* Control buttons */
 .controls {
     display: flex;
     gap: 15px;
@@ -101,6 +74,7 @@ body {
     -webkit-app-region: no-drag; /* Exclude controls from dragging */
 }
 
+/* Style for control buttons */
 .controls button {
     font-size: 16px;
     background: #2e595b;
@@ -115,5 +89,20 @@ body {
     cursor: pointer;
     transition: all 0.3s ease-in-out;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    -webkit-app-region: no-drag; /* Exclude buttons from dragging */
+}
+
+/* Hover effect for control buttons */
+.controls button:hover {
+    transform: scale(1.1);
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Reset button gradient */
+#reset {
+    background: linear-gradient(45deg, #1f7073, #2e595b);
+}
+
+/* Reset button hover effect */
+#reset:hover {
+    background: linear-gradient(45deg, #3e8285, #2e595b);
 }
