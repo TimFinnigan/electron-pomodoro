@@ -1,24 +1,31 @@
 {
   "name": "electron-pomodoro",
   "version": "1.0.0",
+  "description": "A simple Pomodoro timer built with Electron.",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron ."
+    "start": "electron .",
+    "package": "npx @electron/packager . PomodoroTimer --platform=darwin --arch=x64 --out=dist --overwrite",
+    "package:mac": "npx @electron/packager . PomodoroTimer --platform=darwin --arch=universal --out=dist --overwrite"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/TimFinnigan/electron-pomodoro.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "pomodoro",
+    "electron",
+    "productivity",
+    "timer"
+  ],
+  "author": "Tim Finnigan",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/TimFinnigan/electron-pomodoro/issues"
   },
   "homepage": "https://github.com/TimFinnigan/electron-pomodoro#readme",
-  "description": "",
   "devDependencies": {
+    "@electron/packager": "^18.3.6",
     "electron": "^34.0.1"
   },
   "dependencies": {
