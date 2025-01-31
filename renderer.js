@@ -5,8 +5,8 @@ let isRunning = false;
 
 const progressFill = document.querySelector('.progress-fill'); // Progress fill element
 const timerText = document.getElementById('timer-text'); // Timer text element
-const toggleButton = document.getElementById('toggle');
-const resetButton = document.getElementById('reset');
+const toggleButton = document.getElementById('toggle'); // Play/Pause button
+const resetButton = document.getElementById('reset'); // Reset button
 
 // Set initial opacity value explicitly
 timerText.style.opacity = '1';
@@ -43,6 +43,9 @@ function startTimer() {
                     clearInterval(timerInterval);
                     timerInterval = null;
 
+                    // Hide play/pause button when timer completes
+                    toggleButton.style.display = 'none';
+
                     const now = new Date();
                     let hours = now.getHours();
                     const minutes = now.getMinutes().toString().padStart(2, '0');
@@ -67,6 +70,7 @@ function pauseTimer() {
     timerInterval = null;
 }
 
+// Toggle play/pause button
 toggleButton.addEventListener('click', () => {
     if (isRunning) {
         pauseTimer();
@@ -78,14 +82,20 @@ toggleButton.addEventListener('click', () => {
     isRunning = !isRunning;
 });
 
+// Reset button event listener (Auto-starts timer)
 resetButton.addEventListener('click', () => {
     clearInterval(timerInterval);
     timerInterval = null;
-    isRunning = false;
+    isRunning = true; // Set to running immediately
     minutes = 25;
     seconds = 0;
-    toggleButton.innerHTML = '<i class="fas fa-play"></i>';
+    toggleButton.innerHTML = '<i class="fas fa-pause"></i>'; // Start immediately, so show "pause" icon
+    
+    // Show play/pause button again when reset
+    toggleButton.style.display = 'block';
+
     updateDisplay();
+    startTimer(); // Auto-start the timer
 });
 
 updateDisplay();
