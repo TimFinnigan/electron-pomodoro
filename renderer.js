@@ -3,7 +3,7 @@ let seconds = 0;
 let timerInterval;
 let isRunning = false;
 
-const progressBar = document.querySelector('.progress-bar');
+const progressFill = document.querySelector('.progress-fill'); // Progress fill element
 const timerText = document.getElementById('timer-text'); // Timer text element
 const toggleButton = document.getElementById('toggle');
 const resetButton = document.getElementById('reset');
@@ -13,21 +13,19 @@ timerText.style.opacity = '1';
 
 // Function to toggle timer visibility
 timerText.addEventListener('click', () => {
-    if (timerText.style.opacity === '1') {
-        timerText.style.opacity = '0'; // Hide timer
-    } else {
-        timerText.style.opacity = '1'; // Show timer
-    }
+    timerText.style.opacity = timerText.style.opacity === '1' ? '0' : '1';
 });
 
 function updateProgressBar() {
     const totalSeconds = 25 * 60; // Total time in seconds (25 minutes)
     const elapsedSeconds = totalSeconds - (minutes * 60 + seconds);
     const percentage = (elapsedSeconds / totalSeconds) * 100;
-    progressBar.style.background = `conic-gradient(
+    
+    // Update the progress fill
+    progressFill.style.background = `conic-gradient(
         #1f7073 ${percentage.toFixed(2)}%, 
         #333333 ${percentage.toFixed(2)}% 100%
-    )`; /* Smooth gradient fill */
+    )`;
 }
 
 function updateDisplay() {
@@ -72,10 +70,10 @@ function pauseTimer() {
 toggleButton.addEventListener('click', () => {
     if (isRunning) {
         pauseTimer();
-        toggleButton.innerHTML = '<i class="fas fa-play"></i>'; // Icon-only
+        toggleButton.innerHTML = '<i class="fas fa-play"></i>';
     } else {
         startTimer();
-        toggleButton.innerHTML = '<i class="fas fa-pause"></i>'; // Icon-only
+        toggleButton.innerHTML = '<i class="fas fa-pause"></i>';
     }
     isRunning = !isRunning;
 });
@@ -86,7 +84,7 @@ resetButton.addEventListener('click', () => {
     isRunning = false;
     minutes = 25;
     seconds = 0;
-    toggleButton.innerHTML = '<i class="fas fa-play"></i>'; // Icon-only
+    toggleButton.innerHTML = '<i class="fas fa-play"></i>';
     updateDisplay();
 });
 
