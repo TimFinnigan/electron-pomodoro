@@ -107,8 +107,8 @@ resetButton.addEventListener('click', () => {
     clearInterval(timerInterval);
     timerInterval = null;
     isRunning = true;
-    minutes = 0;
-    seconds = 2;
+    minutes = 25;
+    seconds = 0;
     toggleButton.innerHTML = '<i class="fas fa-pause"></i>';
     toggleButton.style.display = 'block';
 
