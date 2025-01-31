@@ -9,15 +9,26 @@
 </head>
 <body>
   <div class="container" id="timer-container">
+    <!-- Info Button -->
+    <button id="info-btn"><i class="fas fa-info-circle"></i></button>  
+
     <div class="progress-bar">
-      <div class="progress-fill"></div> <!-- New progress fill -->
-      <div class="timer-text" id="timer-text">25:00</div> <!-- Timer text -->
+      <div class="progress-fill"></div>
+      <div class="timer-text" id="timer-text">25:00</div>
     </div>
+
     <div class="controls">
-      <button id="toggle"><i class="fas fa-play"></i></button> <!-- Start/Pause button -->
-      <button id="reset"><i class="fas fa-redo"></i></button> <!-- Reset button -->
+      <button id="toggle"><i class="fas fa-play"></i></button>
+      <button id="reset"><i class="fas fa-redo"></i></button>
+    </div>
+
+    <!-- Pomodoro Log -->
+    <div id="pomodoro-log">
+      <h3>Completed Pomodoros</h3>
+      <ul id="log-list"></ul>
     </div>
   </div>
+
   <script src="renderer.js"></script>
 </body>
 </html>

@@ -3,25 +3,26 @@ let seconds = 0;
 let timerInterval;
 let isRunning = false;
 
-const progressFill = document.querySelector('.progress-fill'); // Progress fill element
-const timerText = document.getElementById('timer-text'); // Timer text element
-const toggleButton = document.getElementById('toggle'); // Play/Pause button
-const resetButton = document.getElementById('reset'); // Reset button
+const progressFill = document.querySelector('.progress-fill');
+const timerText = document.getElementById('timer-text');
+const toggleButton = document.getElementById('toggle');
+const resetButton = document.getElementById('reset');
+const infoButton = document.getElementById('info-btn');  // Info button
+const logContainer = document.getElementById('pomodoro-log'); // Log container
+const logList = document.getElementById('log-list'); // Log list
 
-// Set initial opacity value explicitly
 timerText.style.opacity = '1';
 
-// Function to toggle timer visibility
+// Toggle timer visibility
 timerText.addEventListener('click', () => {
     timerText.style.opacity = timerText.style.opacity === '1' ? '0' : '1';
 });
 
 function updateProgressBar() {
-    const totalSeconds = 25 * 60; // Total time in seconds (25 minutes)
+    const totalSeconds = 25 * 60;
     const elapsedSeconds = totalSeconds - (minutes * 60 + seconds);
     const percentage = (elapsedSeconds / totalSeconds) * 100;
-    
-    // Update the progress fill
+
     progressFill.style.background = `conic-gradient(
         #1f7073 ${percentage.toFixed(2)}%, 
         #333333 ${percentage.toFixed(2)}% 100%
@@ -29,10 +30,30 @@ function updateProgressBar() {
 }
 
 function updateDisplay() {
-    timerText.textContent = `${minutes.toString().padStart(2, '0')}:${seconds
-        .toString()
-        .padStart(2, '0')}`;
+    timerText.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
     updateProgressBar();
+}
+
+function logPomodoro() {
+    const now = new Date();
+    const timestamp = now.toLocaleString();
+
+    let pomodoroHistory = JSON.parse(localStorage.getItem('pomodoroHistory')) || [];
+    pomodoroHistory.unshift(timestamp); // Add new entry to the top
+    localStorage.setItem('pomodoroHistory', JSON.stringify(pomodoroHistory));
+
+    updateLogDisplay();
+}
+
+function updateLogDisplay() {
+    logList.innerHTML = "";
+    let pomodoroHistory = JSON.parse(localStorage.getItem('pomodoroHistory')) || [];
+
+    pomodoroHistory.forEach(entry => {
+        const listItem = document.createElement("li");
+        listItem.textContent = entry;
+        logList.appendChild(listItem);
+    });
 }
 
 function startTimer() {
@@ -43,8 +64,9 @@ function startTimer() {
                     clearInterval(timerInterval);
                     timerInterval = null;
 
-                    // Hide play/pause button when timer completes
                     toggleButton.style.display = 'none';
+
+                    logPomodoro(); // Save completed session
 
                     const now = new Date();
                     let hours = now.getHours();
@@ -70,7 +92,6 @@ function pauseTimer() {
     timerInterval = null;
 }
 
-// Toggle play/pause button
 toggleButton.addEventListener('click', () => {
     if (isRunning) {
         pauseTimer();
@@ -82,20 +103,23 @@ toggleButton.addEventListener('click', () => {
     isRunning = !isRunning;
 });
 
-// Reset button event listener (Auto-starts timer)
 resetButton.addEventListener('click', () => {
     clearInterval(timerInterval);
     timerInterval = null;
-    isRunning = true; // Set to running immediately
-    minutes = 25;
-    seconds = 0;
-    toggleButton.innerHTML = '<i class="fas fa-pause"></i>'; // Start immediately, so show "pause" icon
-    
-    // Show play/pause button again when reset
+    isRunning = true;
+    minutes = 0;
+    seconds = 2;
+    toggleButton.innerHTML = '<i class="fas fa-pause"></i>';
     toggleButton.style.display = 'block';
 
     updateDisplay();
-    startTimer(); // Auto-start the timer
+    startTimer();
+});
+
+// Toggle log visibility
+infoButton.addEventListener('click', () => {
+    logContainer.classList.toggle('visible');
 });
 
 updateDisplay();
+updateLogDisplay();
