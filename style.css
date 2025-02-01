@@ -29,7 +29,7 @@ html, body {
     height: 150px;
     border-radius: 50%;
     position: relative;
-    background: #333333; /* Static background color */
+    background: transparent !important; /* Ensure full transparency */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -47,19 +47,19 @@ html, body {
     /* Conic-gradient for progress */
     background: conic-gradient(#1f7073 0%, #333333 0%);
     
-    /* Clip to only appear inside the ring */
-    mask: radial-gradient(circle, transparent 42%, black 43%);
-    -webkit-mask: radial-gradient(circle, transparent 42%, black 43%);
+    /* Ensure full transparency inside the ring */
+    mask: radial-gradient(circle, rgba(0, 0, 0, 0) 42%, rgba(0, 0, 0, 1) 43%);
+    -webkit-mask: radial-gradient(circle, rgba(0, 0, 0, 0) 42%, rgba(0, 0, 0, 1) 43%);
 }
 
-/* Inner hole for the progress bar */
+/* Inner hole for the progress bar (force transparency) */
 .progress-bar::after {
     content: '';
-    width: 100px; /* Creates a transparent inner hole */
+    width: 100px; /* Creates a fully transparent inner hole */
     height: 100px;
-    background: rgba(18, 18, 18, 0.9); /* Matches the container background */
-    border-radius: 50%;
+    background: transparent !important; /* Ensure complete transparency */
     position: absolute;
+    border-radius: 50%;
     z-index: 2;
 }
 
