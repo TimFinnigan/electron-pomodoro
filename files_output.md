@@ -1,19 +1,57 @@
 // /Users/timfinnigan/Documents/GitHub/electron-pomodoro/renderer.js
 
+// renderer.js
+const { ipcRenderer } = require('electron');
+
 let minutes = 25;
 let seconds = 0;
 let timerInterval;
 let isRunning = false;
+let isDragging = false;
+let startX, startY;
 
 const progressFill = document.querySelector('.progress-fill');
 const timerText = document.getElementById('timer-text');
 const toggleButton = document.getElementById('toggle');
 const resetButton = document.getElementById('reset');
-const infoButton = document.getElementById('info-btn');  // Info button
-const logContainer = document.getElementById('pomodoro-log'); // Log container
-const logList = document.getElementById('log-list'); // Log list
+const infoButton = document.getElementById('info-btn');
+const logContainer = document.getElementById('pomodoro-log');
+const logList = document.getElementById('log-list');
 
 timerText.style.opacity = '1';
+
+// Drag functionality
+document.addEventListener('DOMContentLoaded', () => {
+    const container = document.querySelector('.container');
+    
+    function startDrag(e) {
+        if (e.target.closest('.controls') || e.target.closest('#info-btn')) return;
+        isDragging = true;
+        startX = e.screenX;
+        startY = e.screenY;
+        container.style.cursor = 'grabbing';
+    }
+
+    function stopDrag() {
+        isDragging = false;
+        container.style.cursor = 'grab';
+    }
+
+    function drag(e) {
+        if (isDragging) {
+            ipcRenderer.send('move-window', {
+                deltaX: e.screenX - startX,
+                deltaY: e.screenY - startY
+            });
+            startX = e.screenX;
+            startY = e.screenY;
+        }
+    }
+
+    container.addEventListener('mousedown', startDrag);
+    document.addEventListener('mousemove', drag);
+    document.addEventListener('mouseup', stopDrag);
+});
 
 // Toggle timer visibility
 timerText.addEventListener('click', () => {
@@ -41,7 +79,7 @@ function logPomodoro() {
     const timestamp = now.toLocaleString();
 
     let pomodoroHistory = JSON.parse(localStorage.getItem('pomodoroHistory')) || [];
-    pomodoroHistory.unshift(timestamp); // Add new entry to the top
+    pomodoroHistory.unshift(timestamp);
     localStorage.setItem('pomodoroHistory', JSON.stringify(pomodoroHistory));
 
     updateLogDisplay();
@@ -65,10 +103,8 @@ function startTimer() {
                 if (minutes === 0) {
                     clearInterval(timerInterval);
                     timerInterval = null;
-
                     toggleButton.style.display = 'none';
-
-                    logPomodoro(); // Save completed session
+                    logPomodoro();
 
                     const now = new Date();
                     let hours = now.getHours();
@@ -113,12 +149,10 @@ resetButton.addEventListener('click', () => {
     seconds = 0;
     toggleButton.innerHTML = '<i class="fas fa-pause"></i>';
     toggleButton.style.display = 'block';
-
     updateDisplay();
     startTimer();
 });
 
-// Toggle log visibility
 infoButton.addEventListener('click', () => {
     logContainer.classList.toggle('visible');
 });
@@ -171,7 +205,8 @@ updateLogDisplay();
 
 // /Users/timfinnigan/Documents/GitHub/electron-pomodoro/main.js
 
-const { app, BrowserWindow, screen } = require("electron");
+// main.js
+const { app, BrowserWindow, screen, ipcMain } = require("electron");
 const path = require("path");
 
 let mainWindow;
@@ -179,25 +214,27 @@ let mainWindow;
 app.on("ready", () => {
     const { workArea } = screen.getPrimaryDisplay();
     
-    // Adjustments: Keep app in top-right but with a slight offset
-    const offset = 10; // Small spacing from the edges
+    const offset = 10;
     const cornerX = workArea.x + workArea.width - 200 - offset;
-    const cornerY = workArea.y + offset; // Offset from top
+    const cornerY = workArea.y + offset;
 
     mainWindow = new BrowserWindow({
         width: 200,
         height: 300,
         resizable: false,
         alwaysOnTop: true,
-        transparent: true, // Ensures transparency
+        transparent: true,
         frame: false,
-        hasShadow: false, // Prevents OS-level window shadow (mainly macOS)
-        backgroundColor: "#00000000", // Ensures no white space/background
+        hasShadow: false,
+        backgroundColor: "#00000000",
         webPreferences: {
-            preload: path.join(__dirname, "renderer.js"),
+            nodeIntegration: true,
+            contextIsolation: false,
         },
         fullscreenable: false,
     });
+
+    mainWindow.loadFile("index.html");
 
     mainWindow.setBounds({
         x: cornerX,
@@ -206,17 +243,22 @@ app.on("ready", () => {
         height: 300,
     });
 
-    // Ensure the window size exactly matches content dimensions
-    mainWindow.once("ready-to-show", () => {
-        mainWindow.setBounds({ x: cornerX, y: cornerY, width: 200, height: 300 });
-    });
-
-    // Keep window on all virtual desktops
     mainWindow.setVisibleOnAllWorkspaces(true, {
-        visibleOnFullScreen: true, // Keep it visible even in fullscreen apps
+        visibleOnFullScreen: true,
     });
+});
 
-    mainWindow.loadFile("index.html");
+// Handle window movement
+ipcMain.on('move-window', (event, { deltaX, deltaY }) => {
+    if (mainWindow) {
+        const bounds = mainWindow.getBounds();
+        mainWindow.setBounds({
+            x: bounds.x + deltaX,
+            y: bounds.y + deltaY,
+            width: bounds.width,
+            height: bounds.height
+        });
+    }
 });
 
 app.on("window-all-closed", () => {
@@ -247,12 +289,11 @@ html, body {
     flex-direction: column;
     align-items: center;
     border-radius: 15px;
-    box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.8); /* Slight shadow for depth */
-    background: rgba(18, 18, 18, 0.9); /* Slightly transparent black */
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.6); /* Reduced shadow */
+    background: rgba(18, 18, 18, 0.9);
     padding: 20px;
     position: relative;
     transition: background 0.3s ease-in-out;
-    -webkit-app-region: drag; /* Allow dragging */
 }
 
 /* Outer ring - static background */
@@ -313,7 +354,7 @@ html, body {
     display: flex;
     gap: 15px;
     margin-top: 15px;
-    -webkit-app-region: no-drag; /* Exclude controls from dragging */
+    -webkit-app-region: drag;
 }
 
 /* Style for control buttons */
@@ -331,6 +372,7 @@ html, body {
     cursor: pointer;
     transition: all 0.3s ease-in-out;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    -webkit-app-region: no-drag; /* Exclude controls from dragging */
 }
 
 /* Hover effect for control buttons */

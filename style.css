@@ -5,7 +5,7 @@ html, body {
     width: 100%;
     height: 100%;
     overflow: hidden;
-    background: transparent; /* Full transparency */
+    background: transparent;
 }
 
 /* Timer container */
@@ -15,26 +15,26 @@ html, body {
     flex-direction: column;
     align-items: center;
     border-radius: 15px;
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.6); /* Reduced shadow */
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.6);
     background: rgba(18, 18, 18, 0.9);
-    padding: 20px;
+    padding: 18px; /* Adjusted padding */
     position: relative;
     transition: background 0.3s ease-in-out;
 }
 
 /* Outer ring - static background */
 .progress-bar {
-    width: 150px;
-    height: 150px;
+    width: 132px;  /* Reduced from 150 */
+    height: 132px; /* Reduced from 150 */
     border-radius: 50%;
     position: relative;
-    background: transparent !important; /* Ensure full transparency */
+    background: transparent;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-/* Progress fill - correctly masked */
+/* Progress fill */
 .progress-fill {
     width: 100%;
     height: 100%;
@@ -42,21 +42,17 @@ html, body {
     top: 0;
     left: 0;
     border-radius: 50%;
-    
-    /* Conic-gradient for progress */
     background: conic-gradient(#1f7073 0%, #333333 0%);
-    
-    /* Ensure full transparency inside the ring */
     mask: radial-gradient(circle, rgba(0, 0, 0, 0) 42%, rgba(0, 0, 0, 1) 43%);
     -webkit-mask: radial-gradient(circle, rgba(0, 0, 0, 0) 42%, rgba(0, 0, 0, 1) 43%);
 }
 
-/* Inner hole for the progress bar (force transparency) */
+/* Inner hole for the progress bar */
 .progress-bar::after {
     content: '';
-    width: 100px; /* Creates a fully transparent inner hole */
-    height: 100px;
-    background: transparent !important; /* Ensure complete transparency */
+    width: 88px;  /* Reduced from 100 */
+    height: 88px; /* Reduced from 100 */
+    background: transparent;
     position: absolute;
     border-radius: 50%;
     z-index: 2;
@@ -64,41 +60,41 @@ html, body {
 
 /* Timer text inside the progress bar */
 .timer-text {
-    font-size: 24px;
+    font-size: 21px; /* Reduced from 24 */
     font-weight: bold;
     color: #d1f0ef;
     position: absolute;
-    z-index: 3; /* Ensure it's above the hole */
-    opacity: 1; /* Visible by default */
+    z-index: 3;
+    opacity: 1;
     transition: opacity 0.3s ease-in-out;
-    cursor: pointer; /* Indicate that the text is clickable */
-    -webkit-app-region: no-drag; /* Make the timer text interactive */
+    cursor: pointer;
+    -webkit-app-region: no-drag;
 }
 
 /* Control buttons */
 .controls {
     display: flex;
-    gap: 15px;
-    margin-top: 15px;
+    gap: 14px; /* Reduced spacing */
+    margin-top: 14px;
     -webkit-app-region: drag;
 }
 
 /* Style for control buttons */
 .controls button {
-    font-size: 16px;
+    font-size: 14px; /* Reduced from 16 */
     background: #2e595b;
     color: #ffffff;
     border: none;
     border-radius: 50%;
-    width: 50px;
-    height: 50px;
+    width: 44px; /* Reduced from 50 */
+    height: 44px; /* Reduced from 50 */
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    -webkit-app-region: no-drag; /* Exclude controls from dragging */
+    -webkit-app-region: no-drag;
 }
 
 /* Hover effect for control buttons */
@@ -107,53 +103,43 @@ html, body {
     box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
 }
 
-/* Reset button gradient */
-#reset {
-    background: linear-gradient(45deg, #1f7073, #2e595b);
-}
-
-/* Reset button hover effect */
-#reset:hover {
-    background: linear-gradient(45deg, #3e8285, #2e595b);
-}
-
 /* Info Button */
 #info-btn {
     position: absolute;
-    top: 12px; /* Slightly adjusted margin */
-    right: 12px;
+    top: 11px;
+    right: 11px;
     background: none;
     border: none;
-    color: #1f7073; /* Matching theme color */
-    font-size: 16px; /* Slightly smaller */
+    color: #1f7073;
+    font-size: 15px;
     cursor: pointer;
     transition: opacity 0.3s ease-in-out, transform 0.2s;
-    -webkit-app-region: no-drag; /* Ensure it's clickable */
+    -webkit-app-region: no-drag;
 }
 
 #info-btn:hover {
     opacity: 0.8;
     transform: scale(1.1);
-    color: #3e8285; /* Subtle hover color matching theme */
+    color: #3e8285;
 }
 
 /* Pomodoro Log */
 #pomodoro-log {
     display: none;
     position: absolute;
-    top: 50%; /* Adjusted to not take up the full screen */
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 80%;
-    max-height: 150px; /* Added max height */
+    width: 78%;
+    max-height: 132px; /* Reduced from 150 */
     background: rgba(0, 0, 0, 0.9);
     border-radius: 10px;
-    padding: 15px;
+    padding: 14px;
     color: white;
-    font-size: 14px;
-    overflow-y: auto; /* Enables scrolling */
+    font-size: 13px;
+    overflow-y: auto;
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.7);
-    z-index: 9999; /* Ensures it's always above the timer */
+    z-index: 9999;
     -webkit-app-region: no-drag;
 }
 
@@ -161,7 +147,7 @@ html, body {
 #pomodoro-log h3 {
     text-align: center;
     margin-bottom: 5px;
-    font-size: 16px;
+    font-size: 15px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
     padding-bottom: 5px;
     position: sticky;
@@ -174,14 +160,14 @@ html, body {
     list-style: none;
     padding: 0;
     margin: 0;
-    max-height: 120px; /* Ensures only a few entries are shown at a time */
-    overflow-y: auto; /* Enables scrolling */
+    max-height: 110px;
+    overflow-y: auto;
 }
 
 /* Log List Items */
 #log-list li {
     padding: 5px;
-    font-size: 14px;
+    font-size: 13px;
     color: #b8e0df;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     text-align: center;

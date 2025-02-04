@@ -8,12 +8,12 @@ app.on("ready", () => {
     const { workArea } = screen.getPrimaryDisplay();
     
     const offset = 10;
-    const cornerX = workArea.x + workArea.width - 200 - offset;
+    const cornerX = workArea.x + workArea.width - 176 - offset; // Adjusted for new width
     const cornerY = workArea.y + offset;
 
     mainWindow = new BrowserWindow({
-        width: 200,
-        height: 300,
+        width: 176,  // Reduced from 200
+        height: 264, // Reduced from 300
         resizable: false,
         alwaysOnTop: true,
         transparent: true,
@@ -32,8 +32,8 @@ app.on("ready", () => {
     mainWindow.setBounds({
         x: cornerX,
         y: cornerY,
-        width: 200,
-        height: 300,
+        width: 176,
+        height: 264,
     });
 
     mainWindow.setVisibleOnAllWorkspaces(true, {
