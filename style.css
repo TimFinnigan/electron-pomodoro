@@ -15,12 +15,12 @@ html, body {
     flex-direction: column;
     align-items: center;
     border-radius: 15px;
-    box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.8); /* Slight shadow for depth */
-    background: rgba(18, 18, 18, 0.9); /* Slightly transparent black */
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.6); /* Reduced shadow */
+    background: rgba(18, 18, 18, 0.9);
     padding: 20px;
     position: relative;
     transition: background 0.3s ease-in-out;
-    -webkit-app-region: drag; /* Allow dragging */
+    -webkit-app-region: drag;
 }
 
 /* Outer ring - static background */
