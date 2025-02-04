@@ -1,4 +1,5 @@
-const { app, BrowserWindow, screen } = require("electron");
+// main.js
+const { app, BrowserWindow, screen, ipcMain } = require("electron");
 const path = require("path");
 
 let mainWindow;
@@ -6,25 +7,27 @@ let mainWindow;
 app.on("ready", () => {
     const { workArea } = screen.getPrimaryDisplay();
     
-    // Adjustments: Keep app in top-right but with a slight offset
-    const offset = 10; // Small spacing from the edges
+    const offset = 10;
     const cornerX = workArea.x + workArea.width - 200 - offset;
-    const cornerY = workArea.y + offset; // Offset from top
+    const cornerY = workArea.y + offset;
 
     mainWindow = new BrowserWindow({
         width: 200,
         height: 300,
         resizable: false,
         alwaysOnTop: true,
-        transparent: true, // Ensures transparency
+        transparent: true,
         frame: false,
-        hasShadow: false, // Prevents OS-level window shadow (mainly macOS)
-        backgroundColor: "#00000000", // Ensures no white space/background
+        hasShadow: false,
+        backgroundColor: "#00000000",
         webPreferences: {
-            preload: path.join(__dirname, "renderer.js"),
+            nodeIntegration: true,
+            contextIsolation: false,
         },
         fullscreenable: false,
     });
+
+    mainWindow.loadFile("index.html");
 
     mainWindow.setBounds({
         x: cornerX,
@@ -33,17 +36,22 @@ app.on("ready", () => {
         height: 300,
     });
 
-    // Ensure the window size exactly matches content dimensions
-    mainWindow.once("ready-to-show", () => {
-        mainWindow.setBounds({ x: cornerX, y: cornerY, width: 200, height: 300 });
-    });
-
-    // Keep window on all virtual desktops
     mainWindow.setVisibleOnAllWorkspaces(true, {
-        visibleOnFullScreen: true, // Keep it visible even in fullscreen apps
+        visibleOnFullScreen: true,
     });
+});
 
-    mainWindow.loadFile("index.html");
+// Handle window movement
+ipcMain.on('move-window', (event, { deltaX, deltaY }) => {
+    if (mainWindow) {
+        const bounds = mainWindow.getBounds();
+        mainWindow.setBounds({
+            x: bounds.x + deltaX,
+            y: bounds.y + deltaY,
+            width: bounds.width,
+            height: bounds.height
+        });
+    }
 });
 
 app.on("window-all-closed", () => {

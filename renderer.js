@@ -1,17 +1,55 @@
+// renderer.js
+const { ipcRenderer } = require('electron');
+
 let minutes = 25;
 let seconds = 0;
 let timerInterval;
 let isRunning = false;
+let isDragging = false;
+let startX, startY;
 
 const progressFill = document.querySelector('.progress-fill');
 const timerText = document.getElementById('timer-text');
 const toggleButton = document.getElementById('toggle');
 const resetButton = document.getElementById('reset');
-const infoButton = document.getElementById('info-btn');  // Info button
-const logContainer = document.getElementById('pomodoro-log'); // Log container
-const logList = document.getElementById('log-list'); // Log list
+const infoButton = document.getElementById('info-btn');
+const logContainer = document.getElementById('pomodoro-log');
+const logList = document.getElementById('log-list');
 
 timerText.style.opacity = '1';
+
+// Drag functionality
+document.addEventListener('DOMContentLoaded', () => {
+    const container = document.querySelector('.container');
+    
+    function startDrag(e) {
+        if (e.target.closest('.controls') || e.target.closest('#info-btn')) return;
+        isDragging = true;
+        startX = e.screenX;
+        startY = e.screenY;
+        container.style.cursor = 'grabbing';
+    }
+
+    function stopDrag() {
+        isDragging = false;
+        container.style.cursor = 'grab';
+    }
+
+    function drag(e) {
+        if (isDragging) {
+            ipcRenderer.send('move-window', {
+                deltaX: e.screenX - startX,
+                deltaY: e.screenY - startY
+            });
+            startX = e.screenX;
+            startY = e.screenY;
+        }
+    }
+
+    container.addEventListener('mousedown', startDrag);
+    document.addEventListener('mousemove', drag);
+    document.addEventListener('mouseup', stopDrag);
+});
 
 // Toggle timer visibility
 timerText.addEventListener('click', () => {
@@ -39,7 +77,7 @@ function logPomodoro() {
     const timestamp = now.toLocaleString();
 
     let pomodoroHistory = JSON.parse(localStorage.getItem('pomodoroHistory')) || [];
-    pomodoroHistory.unshift(timestamp); // Add new entry to the top
+    pomodoroHistory.unshift(timestamp);
     localStorage.setItem('pomodoroHistory', JSON.stringify(pomodoroHistory));
 
     updateLogDisplay();
@@ -63,10 +101,8 @@ function startTimer() {
                 if (minutes === 0) {
                     clearInterval(timerInterval);
                     timerInterval = null;
-
                     toggleButton.style.display = 'none';
-
-                    logPomodoro(); // Save completed session
+                    logPomodoro();
 
                     const now = new Date();
                     let hours = now.getHours();
@@ -111,12 +147,10 @@ resetButton.addEventListener('click', () => {
     seconds = 0;
     toggleButton.innerHTML = '<i class="fas fa-pause"></i>';
     toggleButton.style.display = 'block';
-
     updateDisplay();
     startTimer();
 });
 
-// Toggle log visibility
 infoButton.addEventListener('click', () => {
     logContainer.classList.toggle('visible');
 });

@@ -20,7 +20,6 @@ html, body {
     padding: 20px;
     position: relative;
     transition: background 0.3s ease-in-out;
-    -webkit-app-region: drag;
 }
 
 /* Outer ring - static background */
